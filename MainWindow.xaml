@@ -31,10 +31,10 @@
             <Button Command="Delete">
                 <Image Source="images/erase.png" ToolTip="Erase" />
             </Button>
-            <Button>
+            <Button Command="Copy" CommandTarget="{Binding ElementName=inputTextBox}">
                 <Image Source="images/copy.png" ToolTip="Copy"/>
             </Button>
-            <Button>
+            <Button Command="Paste" CommandTarget="{Binding ElementName=inputTextBox}">
                 <Image Source="images/paste.png" ToolTip="Paste" />
             </Button>
         </StackPanel>
