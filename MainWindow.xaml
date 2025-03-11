@@ -6,12 +6,25 @@
         xmlns:local="clr-namespace:DPGI_vladik"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <Label  Content="Label" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="38" Margin="0,100,0,0"/>
-        <TextBox HorizontalAlignment="Center" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500"  Margin="0,0,0,10"/>
-        <TextBox HorizontalAlignment="Center"  Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Margin="0,0,0,10" />
-        <TextBox HorizontalAlignment="Center" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Margin="0,0,0,10"/>
-        <TextBox HorizontalAlignment="Center"  Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Margin="0,0,0,10"/>
-        <Button Content="Button" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="500" Height="20" Margin="0,100" />
-    </StackPanel>
+    <WrapPanel Margin="200,100,170,200">
+        <Label  Content="Label"  Height="25" Width="38"/>
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <Label Content="Label" Height="25" Width="38"/>
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <TextBox Text="TextBox" TextWrapping="Wrap" />
+        <Button Content="Button"   Margin="180,50,0,0" />
+    </WrapPanel>
 </Window>
