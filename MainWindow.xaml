@@ -6,25 +6,10 @@
         xmlns:local="clr-namespace:DPGI_vladik"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <WrapPanel Margin="200,100,170,200">
-        <Label  Content="Label"  Height="25" Width="38"/>
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <Label Content="Label" Height="25" Width="38"/>
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <TextBox Text="TextBox" TextWrapping="Wrap" />
-        <Button Content="Button"   Margin="180,50,0,0" />
-    </WrapPanel>
+    <DockPanel>
+        <Label  DockPanel.Dock ="Top" Content="Label" HorizontalAlignment="Center"/>
+        <TextBox Text="TextBox" TextWrapping="Wrap" DockPanel.Dock ="Left" Width="320" />
+        <TextBox Text="TextBox" TextWrapping="Wrap"  DockPanel.Dock ="Right" Width="320"  />
+        <Button  Content="Button" Height="20" Width="100" Margin="0,350,0,0"/>
+    </DockPanel>
 </Window>
