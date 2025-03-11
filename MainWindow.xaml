@@ -6,19 +6,12 @@
         xmlns:local="clr-namespace:DPGI_vladik"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid ShowGridLines="True">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition ></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="38"/>
-        <Button Grid.Column="1" Content="Button" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="267" Height="20"/>
-        <TextBox HorizontalAlignment="Left" Grid.Row="1"  Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="800" Grid.ColumnSpan="3" />
-    </Grid>
+    <StackPanel>
+        <Label  Content="Label" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="38" Margin="0,100,0,0"/>
+        <TextBox HorizontalAlignment="Center" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500"  Margin="0,0,0,10"/>
+        <TextBox HorizontalAlignment="Center"  Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Margin="0,0,0,10" />
+        <TextBox HorizontalAlignment="Center" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Margin="0,0,0,10"/>
+        <TextBox HorizontalAlignment="Center"  Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Margin="0,0,0,10"/>
+        <Button Content="Button" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="500" Height="20" Margin="0,100" />
+    </StackPanel>
 </Window>
