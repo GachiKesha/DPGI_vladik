@@ -5,10 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DPGI_vladik"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Canvas Background="Cyan">
-        <Label  Content="Label" Canvas.Left="20" Canvas.Top="20"/>
-        <TextBox Text="text" TextWrapping="Wrap" Canvas.Left="40" Canvas.Top="40"/>
-        <Button  Content="button" Canvas.Left="60" Canvas.Top="60" />
-    </Canvas>
+        Title="TextEditor" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Height="60">
+            <Button>
+                <Image Source="images/open.png" ToolTip="Open" />
+            </Button>
+            <Button>
+                <Image Source="images/erase.png" ToolTip="Erase" />
+            </Button>
+            <Button>
+                <Image Source="images/copy.png" ToolTip="Copy"/>
+            </Button>
+            <Button>
+                <Image Source="images/paste.png" ToolTip="Paste" />
+            </Button>
+        </StackPanel>
+        <Border Grid.Row="0" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10"></Border>
+    </Grid>
 </Window>
