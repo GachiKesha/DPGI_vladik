@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace DPGI_vladik
 {
@@ -23,6 +24,17 @@ namespace DPGI_vladik
         public MainWindow()
         {
             InitializeComponent();
+            CommandBinding saveCommand = new CommandBinding(ApplicationCommands.Save, execute_Save, canExecute_Save);
+            CommandBindings.Add(saveCommand);
+        }
+        void canExecute_Save(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (inputTextBox.Text.Trim().Length > 0) e.CanExecute = true; else e.CanExecute = false;
+        }
+        void execute_Save(object sender, ExecutedRoutedEventArgs e)
+        {
+            System.IO.File.WriteAllText("file.txt", inputTextBox.Text);
+            MessageBox.Show("The file was saved!");
         }
     }
 }

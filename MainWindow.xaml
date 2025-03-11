@@ -50,7 +50,7 @@
             <DockPanel Grid.Row="1" Margin="30,0,0,0">
                 <Label>Розмір шрифту :</Label>
                 <Slider Margin="4" MinWidth="100" Name="fontSlider" Maximum="100" Minimum="12" />
-                <Button DockPanel.Dock="Bottom" Width="20" Margin="0,0,0,20" Style="{x:Null}" ToolTip="Зберегти">Ok</Button>
+                <Button DockPanel.Dock="Bottom" Width="20" Margin="0,0,0,20" Style="{x:Null}" ToolTip="Зберегти" Command="Save">Ok</Button>
             </DockPanel>
         </Grid>
     </Grid>
