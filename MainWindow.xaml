@@ -26,5 +26,18 @@
             </Button>
         </StackPanel>
         <Border Grid.Row="0" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10"></Border>
+        <Border Grid.Row="1" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10"></Border>
+        <Grid Grid.Row="1" Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <TextBox Grid.Row="0" Text="Write your text here" TextWrapping="Wrap"></TextBox>
+            </ScrollViewer>
+            <DockPanel Grid.Row="1" Margin="0,20,0,0">
+                <Button  DockPanel.Dock="Bottom" Width="20">Ok</Button>
+            </DockPanel>
+        </Grid>
     </Grid>
 </Window>
