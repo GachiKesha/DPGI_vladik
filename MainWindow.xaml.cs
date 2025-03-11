@@ -25,7 +25,9 @@ namespace DPGI_vladik
         {
             InitializeComponent();
             CommandBinding saveCommand = new CommandBinding(ApplicationCommands.Save, execute_Save, canExecute_Save);
+            CommandBinding openCommand = new CommandBinding(ApplicationCommands.Open, execute_Open, canExecute_Open);
             CommandBindings.Add(saveCommand);
+            CommandBindings.Add(openCommand);
         }
         void canExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -35,6 +37,17 @@ namespace DPGI_vladik
         {
             System.IO.File.WriteAllText("file.txt", inputTextBox.Text);
             MessageBox.Show("The file was saved!");
+        }
+        void canExecute_Open(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (inputTextBox.Text.Length == 0) e.CanExecute = true; else e.CanExecute = false;
+        }
+        void execute_Open(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == false) return;
+            string filename = ofd.FileName;
+            inputTextBox.Text = System.IO.File.ReadAllText(filename);
         }
     }
 }
