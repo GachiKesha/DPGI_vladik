@@ -26,8 +26,10 @@ namespace DPGI_vladik
             InitializeComponent();
             CommandBinding saveCommand = new CommandBinding(ApplicationCommands.Save, execute_Save, canExecute_Save);
             CommandBinding openCommand = new CommandBinding(ApplicationCommands.Open, execute_Open, canExecute_Open);
+            CommandBinding deleteCommand = new CommandBinding(ApplicationCommands.Delete, execute_Delete, canExecute_Delete);
             CommandBindings.Add(saveCommand);
             CommandBindings.Add(openCommand);
+            CommandBindings.Add(deleteCommand);
         }
         void canExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -48,6 +50,15 @@ namespace DPGI_vladik
             if (ofd.ShowDialog() == false) return;
             string filename = ofd.FileName;
             inputTextBox.Text = System.IO.File.ReadAllText(filename);
+        }
+        void canExecute_Delete(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (inputTextBox.Text.Length > 0) e.CanExecute = true; else e.CanExecute = false;
+        }
+        void execute_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            inputTextBox.Text = "";
+            MessageBox.Show("Successfully deleted!");
         }
     }
 }

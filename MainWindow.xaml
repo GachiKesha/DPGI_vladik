@@ -28,7 +28,7 @@
             <Button Command="Open">
                 <Image Source="images/open.png" ToolTip="Open" />
             </Button>
-            <Button>
+            <Button Command="Delete">
                 <Image Source="images/erase.png" ToolTip="Erase" />
             </Button>
             <Button>
