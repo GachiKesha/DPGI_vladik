@@ -6,10 +6,9 @@
         xmlns:local="clr-namespace:DPGI_vladik"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <DockPanel>
-        <Label  DockPanel.Dock ="Top" Content="Label" HorizontalAlignment="Center"/>
-        <TextBox Text="TextBox" TextWrapping="Wrap" DockPanel.Dock ="Left" Width="320" />
-        <TextBox Text="TextBox" TextWrapping="Wrap"  DockPanel.Dock ="Right" Width="320"  />
-        <Button  Content="Button" Height="20" Width="100" Margin="0,350,0,0"/>
-    </DockPanel>
+    <Canvas Background="Cyan">
+        <Label  Content="Label" Canvas.Left="20" Canvas.Top="20"/>
+        <TextBox Text="text" TextWrapping="Wrap" Canvas.Left="40" Canvas.Top="40"/>
+        <Button  Content="button" Canvas.Left="60" Canvas.Top="60" />
+    </Canvas>
 </Window>
