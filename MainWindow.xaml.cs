@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,7 +38,12 @@ namespace DPGI_vladik
         }
         void execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
-            System.IO.File.WriteAllText("file.txt", inputTextBox.Text);
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            sfd.DefaultExt = ".txt";
+            if (sfd.ShowDialog() == false) return;
+            string filePath = sfd.FileName;
+            System.IO.File.WriteAllText(filePath, inputTextBox.Text);
             MessageBox.Show("The file was saved!");
         }
         void canExecute_Open(object sender, CanExecuteRoutedEventArgs e)

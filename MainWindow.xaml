@@ -39,7 +39,7 @@
             </Button>
         </StackPanel>
         <Border Grid.Row="1" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10" Background="{StaticResource LinearPanelBrush}"></Border>
-        <Grid Grid.Row="1" Margin="30">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
