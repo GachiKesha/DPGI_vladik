@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DPGI_vladik"
         mc:Ignorable="d"
-        Title="TextEditor" Height="450" Width="800">
+        Title="Number Base Converter" Height="450" Width="800">
     <Window.Resources>
         <LinearGradientBrush x:Key="LinearPanelBrush">
-            <GradientStop Color="Yellow" Offset="0"></GradientStop>
-            <GradientStop Color="Cyan" Offset="0.5"></GradientStop>
-            <GradientStop Color="Yellow" Offset="1"></GradientStop>
+            <GradientStop Color="Pink" Offset="0"></GradientStop>
+            <GradientStop Color="White" Offset="0.5"></GradientStop>
+            <GradientStop Color="Orange" Offset="1"></GradientStop>
         </LinearGradientBrush>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"></Setter>
@@ -18,41 +18,43 @@
             <Setter Property="BorderBrush" Value="White"></Setter>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10" Background="{StaticResource LinearPanelBrush}"></Border>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Height="60">
-            <Button Command="Open">
-                <Image Source="images/open.png" ToolTip="Open" />
-            </Button>
-            <Button Command="Delete">
-                <Image Source="images/erase.png" ToolTip="Erase" />
-            </Button>
-            <Button Command="Copy" CommandTarget="{Binding ElementName=inputTextBox}">
-                <Image Source="images/copy.png" ToolTip="Copy"/>
-            </Button>
-            <Button Command="Paste" CommandTarget="{Binding ElementName=inputTextBox}">
-                <Image Source="images/paste.png" ToolTip="Paste" />
-            </Button>
+    <Grid Background="{StaticResource LinearPanelBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="Enter number" FontWeight="Bold" Margin="1"/>
+            <TextBox x:Name="InputTextBox" Height="48" FontSize="30" Margin="1" />
+
+            <TextBlock Text="From Base" FontWeight="Bold" Margin="1"/>
+            <ComboBox x:Name="FromBaseComboBox" Height="48" FontSize="30" Margin="1">
+                <ComboBoxItem Content="2 (binary)" Tag="2" />
+                <ComboBoxItem Content="8 (octal)" Tag="8" />
+                <ComboBoxItem Content="10 (decimal)" Tag="10" IsSelected="True"/>
+                <ComboBoxItem Content="16 (hex)" Tag="16" />
+            </ComboBox>
+
+            <TextBlock Text="To Base" FontWeight="Bold" Margin="1"/>
+            <ComboBox x:Name="ToBaseComboBox" Height="48" FontSize="30" Margin="1">
+                <ComboBoxItem Content="2 (binary)" Tag="2" />
+                <ComboBoxItem Content="8 (octal)" Tag="8" />
+                <ComboBoxItem Content="10 (decimal)" Tag="10" />
+                <ComboBoxItem Content="16 (hex)" Tag="16" IsSelected="True"/>
+            </ComboBox>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,20">
+                <Button Content="Convert" FontWeight="Bold" Width="80" Height="30" Margin="5" Click="ConvertButton_Click"/>
+                <Button Content="Reset" FontWeight="Bold" Width="80" Height="30" Margin="5" Click="ResetButton_Click"/>
+                <Button Content="Swap" FontWeight="Bold" Width="80" Height="30" Margin="5" Click="SwapButton_Click"/>
+            </StackPanel>
+
+            <TextBlock Text="Result number" FontWeight="Bold" Margin="0,10"/>
+            <TextBox x:Name="ResultTextBox" Height="48" FontSize="30" Margin="0,5" IsReadOnly="True"/>
+
+            <Button Content="Copy" Width="80" Height="30" Margin="5" Click="CopyButton_Click"/>
         </StackPanel>
-        <Border Grid.Row="1" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10" Background="{StaticResource LinearPanelBrush}"></Border>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <ScrollViewer Margin="30">
-                <TextBox Grid.Row="0" Name="inputTextBox" Text="Text" TextWrapping="Wrap" FontSize="{Binding ElementName=fontSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            </ScrollViewer>
-            <DockPanel Grid.Row="1" Margin="30,0,0,0">
-                <Label>Розмір шрифту :</Label>
-                <Slider Margin="4" MinWidth="100" Name="fontSlider" Maximum="100" Minimum="12" />
-                <Button DockPanel.Dock="Bottom" Width="20" Margin="0,0,0,20" Style="{x:Null}" ToolTip="Зберегти" Command="Save">Ok</Button>
-            </DockPanel>
-        </Grid>
     </Grid>
 </Window>
 

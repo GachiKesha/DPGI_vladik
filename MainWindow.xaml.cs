@@ -25,46 +25,51 @@ namespace DPGI_vladik
         public MainWindow()
         {
             InitializeComponent();
-            CommandBinding saveCommand = new CommandBinding(ApplicationCommands.Save, execute_Save, canExecute_Save);
-            CommandBinding openCommand = new CommandBinding(ApplicationCommands.Open, execute_Open, canExecute_Open);
-            CommandBinding deleteCommand = new CommandBinding(ApplicationCommands.Delete, execute_Delete, canExecute_Delete);
-            CommandBindings.Add(saveCommand);
-            CommandBindings.Add(openCommand);
-            CommandBindings.Add(deleteCommand);
         }
-        void canExecute_Save(object sender, CanExecuteRoutedEventArgs e)
+        private void ConvertButton_Click(object sender, RoutedEventArgs e)
         {
-            if (inputTextBox.Text.Trim().Length > 0) e.CanExecute = true; else e.CanExecute = false;
+            string input = InputTextBox.Text;
+            int fromBase = int.Parse(((ComboBoxItem)FromBaseComboBox.SelectedItem).Tag.ToString());
+            int toBase = int.Parse(((ComboBoxItem)ToBaseComboBox.SelectedItem).Tag.ToString());
+
+            try
+            {
+                long decimalValue = Convert.ToInt64(input, fromBase);
+                string result = Convert.ToString(decimalValue, toBase).ToUpper();
+                ResultTextBox.Text = result;
+            }            
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Number is too big.");
+            }
+            catch (OverflowException)
+            {
+                MessageBox.Show("Number is too big.");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Invalid input. Please enter a valid number.");
+            }
         }
-        void execute_Save(object sender, ExecutedRoutedEventArgs e)
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            sfd.DefaultExt = ".txt";
-            if (sfd.ShowDialog() == false) return;
-            string filePath = sfd.FileName;
-            System.IO.File.WriteAllText(filePath, inputTextBox.Text);
-            MessageBox.Show("The file was saved!");
+            InputTextBox.Clear();
+            ResultTextBox.Clear();
+            FromBaseComboBox.SelectedIndex = 2; // Default to Decimal
+            ToBaseComboBox.SelectedIndex = 3;   // Default to Hex
         }
-        void canExecute_Open(object sender, CanExecuteRoutedEventArgs e)
+        private void SwapButton_Click(object sender, RoutedEventArgs e)
         {
-            if (inputTextBox.Text.Length == 0) e.CanExecute = true; else e.CanExecute = false;
+            InputTextBox.Text = ResultTextBox.Text;
+            ResultTextBox.Clear();
+            var temp = FromBaseComboBox.SelectedIndex;
+            FromBaseComboBox.SelectedIndex = ToBaseComboBox.SelectedIndex;
+            ToBaseComboBox.SelectedIndex = temp;
+            ConvertButton_Click(sender, e);
         }
-        void execute_Open(object sender, ExecutedRoutedEventArgs e)
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == false) return;
-            string filename = ofd.FileName;
-            inputTextBox.Text = System.IO.File.ReadAllText(filename);
-        }
-        void canExecute_Delete(object sender, CanExecuteRoutedEventArgs e)
-        {
-            if (inputTextBox.Text.Length > 0) e.CanExecute = true; else e.CanExecute = false;
-        }
-        void execute_Delete(object sender, ExecutedRoutedEventArgs e)
-        {
-            inputTextBox.Text = "";
-            MessageBox.Show("Successfully deleted!");
-        }
+            Clipboard.SetText(ResultTextBox.Text);
+        }        
     }
 }
