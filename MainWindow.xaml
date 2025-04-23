@@ -5,56 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DPGI_vladik"
         mc:Ignorable="d"
-        Title="Number Base Converter" Height="460" Width="800">
+        Title="Book database adapter" Height="460" Width="800">
+
     <Window.Resources>
-        <LinearGradientBrush x:Key="LinearPanelBrush">
-            <GradientStop Color="Pink" Offset="0"></GradientStop>
-            <GradientStop Color="White" Offset="0.5"></GradientStop>
-            <GradientStop Color="Orange" Offset="1"></GradientStop>
+        <LinearGradientBrush x:Key="LinearPanelBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="Pink" Offset="0"/>
+            <GradientStop Color="White" Offset="0.5"/>
+            <GradientStop Color="Orange" Offset="1"/>
         </LinearGradientBrush>
+
         <Style TargetType="Button">
-            <Setter Property="Margin" Value="5"></Setter>
-            <Setter Property="Background" Value="Transparent"></Setter>
-            <Setter Property="BorderBrush" Value="White"></Setter>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#CCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </Window.Resources>
-    <Grid Background="{StaticResource LinearPanelBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1">
-            <TextBlock Text="Enter number" FontWeight="Bold" Margin="1"/>
-            <TextBox x:Name="InputTextBox" Height="48" FontSize="30" Margin="1" />
 
-            <TextBlock Text="From Base" FontWeight="Bold" Margin="1"/>
-            <ComboBox x:Name="FromBaseComboBox" Height="48" FontSize="30" Margin="1">
-                <ComboBoxItem Content="2 (binary)" Tag="2" />
-                <ComboBoxItem Content="8 (octal)" Tag="8" />
-                <ComboBoxItem Content="10 (decimal)" Tag="10" IsSelected="True"/>
-                <ComboBoxItem Content="16 (hex)" Tag="16" />
-            </ComboBox>
+    <Grid Margin="10" Background="{StaticResource LinearPanelBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="To Base" FontWeight="Bold" Margin="1"/>
-            <ComboBox x:Name="ToBaseComboBox" Height="48" FontSize="30" Margin="1">
-                <ComboBoxItem Content="2 (binary)" Tag="2" />
-                <ComboBoxItem Content="8 (octal)" Tag="8" />
-                <ComboBoxItem Content="10 (decimal)" Tag="10" />
-                <ComboBoxItem Content="16 (hex)" Tag="16" IsSelected="True"/>
-            </ComboBox>
+        <DataGrid x:Name="BooksGrid" Height="200" Width="750" 
+                  AutoGenerateColumns="True" Margin="10"
+                  Grid.Row="0" HorizontalAlignment="Left"/>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,20">
-                <Button Content="Convert" FontWeight="Bold" Width="80" Height="30" Margin="5" Click="ConvertButton_Click"/>
-                <Button Content="Reset" FontWeight="Bold" Width="80" Height="30" Margin="5" Click="ResetButton_Click"/>
-                <Button Content="Swap" FontWeight="Bold" Width="80" Height="30" Margin="5" Click="SwapButton_Click"/>
-            </StackPanel>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <TextBlock Text="Result number" FontWeight="Bold" Margin="0,10"/>
-            <TextBox x:Name="ResultTextBox" Height="48" FontSize="30" Margin="0,5" IsReadOnly="True"/>
+            <TextBlock Text="ISBN:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txtISBN" Grid.Column="1"/>
 
-            <Button Content="Copy" Width="80" Height="30" Margin="5" Click="CopyButton_Click"/>
+            <TextBlock Text="Name:" Grid.Column="2" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txtName" Grid.Column="3"/>
+
+            <TextBlock Text="Authors:" Grid.Row="1" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txtAuthors" Grid.Row="1" Grid.Column="1"/>
+
+            <TextBlock Text="Publisher:" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txtPublisher" Grid.Row="1" Grid.Column="3"/>
+
+            <TextBlock Text="Year:" Grid.Row="2" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txtYear" Grid.Row="2" Grid.Column="1"/>
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Left" Margin="10">
+            <Button x:Name="btnLoad" Content="Load Books" Width="Auto" Click="btnLoad_Click"/>
+            <Button x:Name="btnInsert" Content="Insert" Width="Auto" Click="btnInsert_Click"/>
+            <Button x:Name="btnUpdate" Content="Update" Width="Auto" Click="btnUpdate_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" Width="Auto" Click="btnDelete_Click"/>
+            <Button x:Name="btnFindByYear" Content="Find by Year" Width="Auto" Click="btnFindByYear_Click"/>
+            <Button x:Name="btnFindByISBN" Content="Find by ISBN" Width="Auto" Click="btnFindByISBN_Click"/>
         </StackPanel>
     </Grid>
 </Window>
-

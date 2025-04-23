@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -22,54 +23,67 @@ namespace DPGI_vladik
     /// </summary>
     public partial class MainWindow : Window
     {
+        AdoAssistant dbHelper = new AdoAssistant();
+
         public MainWindow()
         {
             InitializeComponent();
         }
-        private void ConvertButton_Click(object sender, RoutedEventArgs e)
-        {
-            string input = InputTextBox.Text;
-            int fromBase = int.Parse(((ComboBoxItem)FromBaseComboBox.SelectedItem).Tag.ToString());
-            int toBase = int.Parse(((ComboBoxItem)ToBaseComboBox.SelectedItem).Tag.ToString());
 
-            try
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            BooksGrid.ItemsSource = dbHelper.TableLoad().DefaultView;
+        }
+
+        private void btnInsert_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtISBN.Text == "" || txtName.Text == "" || txtAuthors.Text == "" || txtPublisher.Text == "")
             {
-                long decimalValue = Convert.ToInt64(input, fromBase);
-                string result = Convert.ToString(decimalValue, toBase).ToUpper();
-                ResultTextBox.Text = result;
-            }            
-            catch (ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Value is too big.");
+                MessageBox.Show("Please enter full data");
+                return;
             }
-            catch (OverflowException)
+            dbHelper.TableInsert(txtISBN.Text, txtName.Text, txtAuthors.Text, txtPublisher.Text, int.Parse(txtYear.Text));
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtISBN.Text == "" || txtName.Text == "" || txtAuthors.Text == "" || txtPublisher.Text == "")
             {
-                MessageBox.Show("Number is too big.");
+                MessageBox.Show("Please enter full data");
+                return;
             }
-            catch (Exception)
+            dbHelper.TableUpdate(txtISBN.Text, txtName.Text, txtAuthors.Text, txtPublisher.Text, int.Parse(txtYear.Text));
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtISBN.Text == "")
             {
-                MessageBox.Show("Invalid input. Please enter a valid number.");
+                MessageBox.Show("Please enter ISBN");
+                return;
+            }
+            dbHelper.TableDelete(txtISBN.Text);
+        }
+        private void btnFindByYear_Click(object sender, RoutedEventArgs e)
+        {
+            int year;
+            if (int.TryParse(txtYear.Text, out year))
+            {
+                BooksGrid.ItemsSource = dbHelper.FindBookByYear(year).DefaultView;
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid year.");
             }
         }
-        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        private void btnFindByISBN_Click(object sender, RoutedEventArgs e)
         {
-            InputTextBox.Clear();
-            ResultTextBox.Clear();
-            FromBaseComboBox.SelectedIndex = 2; // Default to Decimal
-            ToBaseComboBox.SelectedIndex = 3;   // Default to Hex
+            if (txtISBN.Text == "")
+            {
+                MessageBox.Show("Please enter ISBN");
+                return;
+            }
+            BooksGrid.ItemsSource = dbHelper.FindBookByISBN(txtISBN.Text).DefaultView;
         }
-        private void SwapButton_Click(object sender, RoutedEventArgs e)
-        {
-            InputTextBox.Text = ResultTextBox.Text;
-            ResultTextBox.Clear();
-            var temp = FromBaseComboBox.SelectedIndex;
-            FromBaseComboBox.SelectedIndex = ToBaseComboBox.SelectedIndex;
-            ToBaseComboBox.SelectedIndex = temp;
-            ConvertButton_Click(sender, e);
-        }
-        private void CopyButton_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(ResultTextBox.Text);
-        }        
     }
 }
