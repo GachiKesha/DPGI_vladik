@@ -1,116 +1,76 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 
 namespace DPGI_vladik
 {
     public class AdoAssistant
     {
-        readonly string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+        private readonly string connectionString = System.Configuration.ConfigurationManager
+            .ConnectionStrings["connectionString"].ConnectionString;
 
-        DataTable dt = null;
-        public string ISBN { get; set; }
-        public string Name { get; set; }
-        public string Authors { get; set; }
-        public string Publisher { get; set; }
-        public int Year { get; set; }
+        private SqlDataAdapter adapter;
+        private DataTable dt;
 
         public DataTable TableLoad()
         {
             dt = new DataTable();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand command = new SqlCommand("SELECT * FROM [dbo].[Books]", connection);
+
+            adapter = new SqlDataAdapter(command);
+            _ = new SqlCommandBuilder(adapter);
+
+            try
             {
-                SqlCommand command = connection.CreateCommand(); 
-                SqlDataAdapter adapter = new SqlDataAdapter(command);  
-                command.CommandText = "SELECT * FROM [dbo].[Books]";
-                try
-                {
-                    adapter.Fill(dt);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+                connection.Open();
+                adapter.Fill(dt);
+                connection.Close();
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error loading table: " + e.Message);
+            }
+
             return dt;
         }
-        public void TableDelete(string ISBN)
-        {
-            using (SqlConnection сonnection = new SqlConnection(connectionString))
-            {
-                string strSQL = string.Format("DELETE FROM [dbo].[Books] WHERE ISBN='{0}'", ISBN);
-                SqlCommand command = new SqlCommand(strSQL, сonnection);
-                сonnection.Open();
-                command.ExecuteNonQuery();
-                сonnection.Close();
-            }
-        }
-        public void TableUpdate(string ISBN, string Name, string Authors, string Publisher, int Year)
-        {
-            using (SqlConnection сonnection = new SqlConnection(connectionString))
-            {
-                string strSQL = string.Format("UPDATE [dbo].[Books] SET Name='{1}',Authors='{2}',Publisher='{3}', Year='{4}' WHERE ISBN='{0}'", ISBN, Name, Authors, Publisher, Year);
-                SqlCommand command = new SqlCommand(strSQL, сonnection);
-                сonnection.Open();
-                command.ExecuteNonQuery();
-                сonnection.Close();
-            }
-        }
 
-        public void TableInsert(string ISBN, string Name, string Authors, string Publisher, int Year)
+        public void SaveChanges()
         {
-            if (ISBN == null || Name == null || Authors == null || Publisher == null)
+            if (dt == null)
             {
-                MessageBox.Show("Enter full data to insert");
+                MessageBox.Show("Please load the table first.");
                 return;
             }
-            using (SqlConnection сonnection = new SqlConnection(connectionString))
+
+            try
             {
-                string strSQL = string.Format("INSERT INTO [dbo].[Books](ISBN,Name,Authors,Publisher,Year) Values('{0}','{1}','{2}','{3}','{4}')", ISBN, Name, Authors, Publisher, Year);
-                SqlCommand command = new SqlCommand(strSQL, сonnection);
-                сonnection.Open();
-                command.ExecuteNonQuery();
-                сonnection.Close();
+                adapter.Update(dt);
+                MessageBox.Show("Changes saved successfully.");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error saving changes: " + e.Message);
             }
         }
-        public DataTable FindBookByYear(int year)
+        public void Paste(string[] values, DataRowView row)
         {
-            DataTable t = new DataTable();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = connection.CreateCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.CommandText = string.Format("SELECT * FROM [dbo].[Books] WHERE Year ='{0}'", year);
-                try
-                {
-                    adapter.Fill(t);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-                return t;                
-            }
+            if (dt == null) return;
+            int count = Math.Min(values.Length, dt.Columns.Count);
+            for (int i = 0; i < count; i++)
+                row[i] = values[i];
         }
-        public DataTable FindBookByISBN(string ISBN)
+        public void Paste(string[] values)
         {
-            DataTable t = new DataTable();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = connection.CreateCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.CommandText = string.Format("SELECT * FROM [dbo].[Books] WHERE ISBN ='{0}'", ISBN);
-                try
-                {
-                    adapter.Fill(t);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-                return t;
-            }
+            if (dt == null) return;
+            DataRow newRow = dt.NewRow();
+            int count = Math.Min(values.Length, dt.Columns.Count);
+            for (int i = 0; i < count; i++)
+                newRow[i] = values[i];
+
+            dt.Rows.Add(newRow);
         }
     }
 }

@@ -43,46 +43,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DataGrid x:Name="BooksGrid" Height="200" Width="750" 
-                  AutoGenerateColumns="True" Margin="10"
-                  Grid.Row="0" HorizontalAlignment="Left"/>
-
-        <Grid Grid.Row="1" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="ISBN:" VerticalAlignment="Center" Margin="5"/>
-            <TextBox x:Name="txtISBN" Grid.Column="1"/>
-
-            <TextBlock Text="Name:" Grid.Column="2" VerticalAlignment="Center" Margin="5"/>
-            <TextBox x:Name="txtName" Grid.Column="3"/>
-
-            <TextBlock Text="Authors:" Grid.Row="1" VerticalAlignment="Center" Margin="5"/>
-            <TextBox x:Name="txtAuthors" Grid.Row="1" Grid.Column="1"/>
-
-            <TextBlock Text="Publisher:" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="5"/>
-            <TextBox x:Name="txtPublisher" Grid.Row="1" Grid.Column="3"/>
-
-            <TextBlock Text="Year:" Grid.Row="2" VerticalAlignment="Center" Margin="5"/>
-            <TextBox x:Name="txtYear" Grid.Row="2" Grid.Column="1"/>
-        </Grid>
+        <DataGrid x:Name="BooksGrid" Height="300" Width="750" 
+                  AutoGenerateColumns="True" Margin="10" Grid.Row="0" HorizontalAlignment="Left"
+                  ClipboardCopyMode="ExcludeHeader" SelectionUnit="Cell" PreviewKeyDown="Paste" />        
         
         <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Left" Margin="10">
-            <Button x:Name="btnLoad" Content="Load Books" Width="Auto" Click="btnLoad_Click"/>
-            <Button x:Name="btnInsert" Content="Insert" Width="Auto" Click="btnInsert_Click"/>
-            <Button x:Name="btnUpdate" Content="Update" Width="Auto" Click="btnUpdate_Click"/>
-            <Button x:Name="btnDelete" Content="Delete" Width="Auto" Click="btnDelete_Click"/>
-            <Button x:Name="btnFindByYear" Content="Find by Year" Width="Auto" Click="btnFindByYear_Click"/>
-            <Button x:Name="btnFindByISBN" Content="Find by ISBN" Width="Auto" Click="btnFindByISBN_Click"/>
+            <Button x:Name="btnLoad" Content="Reload" Width="Auto" Click="btnLoad_Click"/>
+            <Button x:Name="btnSave" Content="Save" Width="Auto" Click="btnSave_Click"/>
+            <Button x:Name="btnDelete" Content="Delete selected" Width="Auto" Click="btnDelete_click" />
         </StackPanel>
     </Grid>
 </Window>

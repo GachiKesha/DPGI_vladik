@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DPGI_vladik
 {
@@ -28,6 +29,7 @@ namespace DPGI_vladik
         public MainWindow()
         {
             InitializeComponent();
+            BooksGrid.ItemsSource = dbHelper.TableLoad().DefaultView;
         }
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)
@@ -35,55 +37,41 @@ namespace DPGI_vladik
             BooksGrid.ItemsSource = dbHelper.TableLoad().DefaultView;
         }
 
-        private void btnInsert_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (txtISBN.Text == "" || txtName.Text == "" || txtAuthors.Text == "" || txtPublisher.Text == "")
-            {
-                MessageBox.Show("Please enter full data");
-                return;
-            }
-            dbHelper.TableInsert(txtISBN.Text, txtName.Text, txtAuthors.Text, txtPublisher.Text, int.Parse(txtYear.Text));
+            dbHelper.SaveChanges();
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_click(object sender, RoutedEventArgs e)
         {
-            if (txtISBN.Text == "" || txtName.Text == "" || txtAuthors.Text == "" || txtPublisher.Text == "")
+            if (BooksGrid.SelectedItem is DataRowView row)
             {
-                MessageBox.Show("Please enter full data");
-                return;
+                row.Delete();
             }
-            dbHelper.TableUpdate(txtISBN.Text, txtName.Text, txtAuthors.Text, txtPublisher.Text, int.Parse(txtYear.Text));
+            else MessageBox.Show("Select row(s) for this operation");
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void Paste(object sender, KeyEventArgs e)
         {
-            if (txtISBN.Text == "")
+            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                MessageBox.Show("Please enter ISBN");
-                return;
+                string clipboardData = Clipboard.GetText();
+                if (string.IsNullOrWhiteSpace(clipboardData))
+                    return;
+
+                string[] values = clipboardData.Split('\t');
+
+                var item = BooksGrid.CurrentItem;
+
+                if (item is DataRowView row && !row.IsNew)
+                {
+                    dbHelper.Paste(values, row);
+                }
+                else
+                {
+                    dbHelper.Paste(values);                    
+                }
             }
-            dbHelper.TableDelete(txtISBN.Text);
-        }
-        private void btnFindByYear_Click(object sender, RoutedEventArgs e)
-        {
-            int year;
-            if (int.TryParse(txtYear.Text, out year))
-            {
-                BooksGrid.ItemsSource = dbHelper.FindBookByYear(year).DefaultView;
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid year.");
-            }
-        }
-        private void btnFindByISBN_Click(object sender, RoutedEventArgs e)
-        {
-            if (txtISBN.Text == "")
-            {
-                MessageBox.Show("Please enter ISBN");
-                return;
-            }
-            BooksGrid.ItemsSource = dbHelper.FindBookByISBN(txtISBN.Text).DefaultView;
         }
     }
 }
