@@ -37,15 +37,41 @@
 
     <Grid Margin="10" Background="{StaticResource LinearPanelBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <DataGrid x:Name="BooksGrid" Height="300" Width="750" 
-                  AutoGenerateColumns="True" Margin="10" Grid.Row="0" HorizontalAlignment="Left"
-                  ClipboardCopyMode="ExcludeHeader" SelectionUnit="Cell" PreviewKeyDown="Paste" />        
+        <TabControl>
+            <TabItem Header="Books" DataContext="{Binding ElementName=BooksGrid}">                
+                <DataGrid x:Name="BooksGrid" Height="300" Width="750"
+                            AutoGenerateColumns="True" Margin="10" Grid.Row="0"
+                            HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
+                            SelectionUnit="Cell" PreviewKeyDown="Paste" />                
+            </TabItem>
+            <TabItem Header="Publishers" DataContext="{Binding ElementName=PublishersGrid}">                
+                <DataGrid x:Name="PublishersGrid" Height="300" Width="750"
+                            AutoGenerateColumns="True" Margin="10" Grid.Row="0"
+                            HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
+                            SelectionUnit="Cell" PreviewKeyDown="Paste" />                
+            </TabItem>
+            <TabItem Header="Old Books" DataContext="{Binding ElementName=OldBooksGrid}">
+                <DataGrid x:Name="OldBooksGrid" Height="300" Width="750"
+                AutoGenerateColumns="True" Margin="10" Grid.Row="0"
+                HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
+                SelectionUnit="Cell" PreviewKeyDown="Paste" />
+            </TabItem>
+            <TabItem Header="Recent Books" DataContext="{Binding ElementName=RecentBooksGrid}">
+                <DataGrid x:Name="RecentBooksGrid" Height="300" Width="750"
+                AutoGenerateColumns="True" Margin="10" Grid.Row="0"
+                HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
+                SelectionUnit="Cell" PreviewKeyDown="Paste" />
+            </TabItem>
+            <TabItem Header="Join Tables" DataContext="{Binding ElementName=Join}">
+                <DataGrid x:Name="Join" Height="300" Width="750"
+                AutoGenerateColumns="True" Margin="10" Grid.Row="0"
+                HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
+                SelectionUnit="Cell" PreviewKeyDown="Paste"/>
+            </TabItem>
+        </TabControl>                
         
         <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Left" Margin="10">
             <Button x:Name="btnLoad" Content="Reload" Width="Auto" Click="btnLoad_Click"/>
