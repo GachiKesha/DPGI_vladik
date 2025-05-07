@@ -20,7 +20,5 @@ namespace DPGI_vladik
         public string Authors { get; set; }
         public int Publisher { get; set; }
         public int Year { get; set; }
-    
-        public virtual Publishers Publishers { get; set; }
     }
 }

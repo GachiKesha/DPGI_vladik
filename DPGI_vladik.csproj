@@ -224,7 +224,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Books.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DBAccess.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

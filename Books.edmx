@@ -54,7 +54,6 @@
           </Key>
           <Property Name="Publisher_id" Type="Int32" Nullable="false" />
           <Property Name="Publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Table" Relationship="Self.FK__Table__Publisher__4BAC3F29" FromRole="Publishers" ToRole="Table" />
         </EntityType>
         <EntityType Name="Table">
           <Key>
@@ -66,7 +65,6 @@
           <Property Name="Authors" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Publisher" Type="Int32" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Publishers" Relationship="Self.FK__Table__Publisher__4BAC3F29" FromRole="Table" ToRole="Publishers" />
         </EntityType>
         <Association Name="FK__Table__Publisher__4BAC3F29">
           <End Role="Publishers" Type="Self.Publishers" Multiplicity="1" />

@@ -14,16 +14,7 @@ namespace DPGI_vladik
     
     public partial class Publishers
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Publishers()
-        {
-            this.Table = new HashSet<Table>();
-        }
-    
         public int Publisher_id { get; set; }
         public string Publisher { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Table> Table { get; set; }
     }
 }
