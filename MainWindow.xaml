@@ -42,23 +42,30 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl x:Name="tabControl">
-            <TabItem Header="Books" DataContext="{Binding ElementName=BooksGrid}">                
+            <TabItem Header="Books" DataContext="{Binding ElementName=BooksGrid}">
                 <DataGrid x:Name="BooksGrid" Height="300" Width="750"
-                            AutoGenerateColumns="True" Margin="10" Grid.Row="0"
-                            HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
-                            SelectionUnit="Cell" PreviewKeyDown="Paste" CanUserAddRows="True"/>                
+                                AutoGenerateColumns="True" Margin="10" Grid.Row="1"
+                                HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
+                                SelectionUnit="Cell" PreviewKeyDown="Paste" CanUserAddRows="True"/>
             </TabItem>
-            <TabItem Header="Publishers" DataContext="{Binding ElementName=PublishersGrid}">                
+            <TabItem Header="Publishers" DataContext="{Binding ElementName=PublishersGrid}">
                 <DataGrid x:Name="PublishersGrid" Height="300" Width="750"
                             AutoGenerateColumns="True" Margin="10" Grid.Row="0"
                             HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
-                            SelectionUnit="Cell" PreviewKeyDown="Paste" CanUserAddRows="True" />                
+                            SelectionUnit="Cell" PreviewKeyDown="Paste" CanUserAddRows="True" />
             </TabItem>
             <TabItem Header="Old Books" DataContext="{Binding ElementName=OldBooksGrid}" Loaded="Tab_Old_Loaded">
-                <DataGrid x:Name="OldBooksGrid" Height="300" Width="750"
-                            AutoGenerateColumns="True" Margin="10" Grid.Row="0"
-                            HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
-                            SelectionUnit="Cell" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <TextBlock Text="Filter by Year:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="OldBooksYearTextBox" Width="50"/>
+                        <Button Content="Apply" Click="FilterOldBooksByYear_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="OldBooksGrid" Height="270" Width="750"
+                                AutoGenerateColumns="True" Margin="10" Grid.Row="0"
+                                HorizontalAlignment="Left" ClipboardCopyMode="ExcludeHeader"
+                                SelectionUnit="Cell" />
+                </StackPanel>
             </TabItem>
             <TabItem Header="Recent Books" DataContext="{Binding ElementName=RecentBooksGrid}" Loaded="Tab_Recent_Loaded">
                 <DataGrid x:Name="RecentBooksGrid" Height="300" Width="750"
@@ -79,12 +86,8 @@
                             SelectionUnit="Cell" />
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Row="2">
-            <Label>ISBN:</Label>
-            <TextBlock Name="ISBN" Text="{Binding ISBN, Mode=TwoWay}"></TextBlock>
-        </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Left" Margin="10">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Left" Margin="10">
             <Button x:Name="btnLoad" Content="Reload" Width="Auto" Click="btnLoad_Click"/>
             <Button x:Name="btnSave" Content="Save" Width="Auto" Click="btnSave_Click"/>
             <Button x:Name="btnDelete" Content="Delete selected" Width="Auto" Click="btnDelete_click" />

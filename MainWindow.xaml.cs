@@ -60,8 +60,21 @@ namespace DPGI_vladik
 
         private void Tab_Old_Loaded(object sender, RoutedEventArgs e)
         {
-            old_books = books.Where(s => s.Year < 1975).ToList();
+            old_books = books.ToList();
             OldBooksGrid.ItemsSource = old_books;
+        }
+
+        private void FilterOldBooksByYear_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(OldBooksYearTextBox.Text, out int year))
+            {
+                var filtered = books.Where(book => book.Year <= year).ToList();
+                OldBooksGrid.ItemsSource = filtered;
+            }
+            else
+            {
+                OldBooksGrid.ItemsSource = old_books;
+            }
         }
         private void Tab_Recent_Loaded(object sender, RoutedEventArgs e)
         {
